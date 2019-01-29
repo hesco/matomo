@@ -25,7 +25,7 @@ class { '::mysql::server':
         mysqld => {
         max_allowed_packet => '64M',
             },
-  	    }
+	}
     }
     mysql::db { $matomo_db_name:
         user                            => $matomo_db_user,
