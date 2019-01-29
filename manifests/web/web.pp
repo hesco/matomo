@@ -27,7 +27,6 @@ class matomo::web::web (
 
     class { '::nginx': }
 
-#include nginx
     nginx::resource::server { $site_name:
         listen_port 		=> $listen_port,
         www_root             	=> $www_root,
@@ -50,7 +49,7 @@ class matomo::web::web (
     fastcgi_param 		=> $fastcgi_param,
   }
 
-
+#php class
 
     class { '::php':
       ensure       		=> latest,
@@ -63,21 +62,25 @@ class matomo::web::web (
       extensions => {
         curl    	=> { },
         gd    		=> { },
-#        cli    		=> { },
         mysql    	=> { },
         xml    		=> { },
-        mbstring    	=> { },   
+        mbstring    	=> { },
+ 	json		=> { },
+	libxml		=> { },
+	dom		=> { },
+	simplexml	=> { },   
       },
+     settings   => {
+    	'PHP/max_execution_time'  		=> '90',
+    	'PHP/max_input_time'      		=> '300',
+    	'PHP/memory_limit'        		=> '64M',
+    	'PHP/post_max_size'       		=> '32M',
+    	'PHP/upload_max_filesize' 		=> '32M',
+    	'PHP/always_populate_raw_post_data' => '-1',
+    	'PHP/session.auto_start' 		=> '0',
+    	'PHP/max_execution_time' 		=> '0',
+  	}, 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

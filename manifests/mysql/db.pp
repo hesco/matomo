@@ -21,6 +21,11 @@ class matomo::mysql::db (
     class { '::mysql::server':
         root_password           		=> $root_password,
         remove_default_accounts 		=> $remove_default_accounts,
+	override_options => {
+    		mysqld => {
+      		max_allowed_packet => '64M',
+    		},
+  	}
     }
     mysql::db { $matomo_db_name:
         user        				=> $matomo_db_user,
