@@ -11,4 +11,6 @@ class matomo (
 ) inherits matomo::params {
 
     include matomo::install
+    include ::archive
+    include ::mysql
 }
