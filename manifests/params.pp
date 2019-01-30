@@ -6,8 +6,8 @@
 #   include matomo::params
 class matomo::params {
 
-  $package_version		= 'latest'
-  $docroot			= '/var/www/html'
-  $package_manage		= true
+  $package_version		  = 'latest'
+  $docroot			        = '/var/www/html'
+  $package_manage		    = true
 
 }

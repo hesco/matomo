@@ -5,8 +5,8 @@
 class matomo (
 
   $package_version		= $matomo::params::package_version,
-  $docroot			= $matomo::params::docroot,
-  $package_manage		= $matomo::params::package_manage,
+  $docroot			      = $matomo::params::docroot,
+  $package_manage		  = $matomo::params::package_manage,
 
 ) inherits matomo::params {
 
