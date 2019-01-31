@@ -8,10 +8,9 @@ class matomo::install {
 
   if $matomo::package_manage == true {
 
-  file { [ '/var/www',
-           '/var/www/html', ]:
-         ensure => directory,
-      }
+  exec{"mkdir -p  ${matomo::docroot}":
+    unless => "test -d ${matomo::docroot}",
+  }
 
   archive { "/opt/matomo-${matomo::package_version}.tar.gz":
         ensure       => present,
@@ -21,7 +20,7 @@ class matomo::install {
         creates      => "/opt/matomo-${matomo::package_version}.tar.gz",
         cleanup      => false,
         require      => File['/var/www'],
-       }
+    }
   }
 
 }

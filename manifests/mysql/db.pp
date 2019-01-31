@@ -32,7 +32,7 @@ class { '::mysql::server':
         password    => $matomo_db_password,
         host        => $host,
         grant       => $grant,
-        sql         => $sql_back_file,
+        sql         => $sql_backup_file,
         enforce_sql => $enforce_sql,
     }
 

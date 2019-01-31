@@ -2,15 +2,28 @@
   "name": "akisakye-matomo",
   "version": "0.1.0",
   "author": "Alex Kisakye",
-  "summary": "",
+  "summary": "Puppet Matomo Web Analytics platform installation module",
   "license": "GPL-3.0-only",
-  "source": "",
+  "source": "https://github.com/akisakye/matomo.git",
+  "project_page": "https://github.com/akisakye/matomo",
+  "issues_url": "https://github.com/akisakye/matomo/issues",
   "dependencies": [
-    { "name": "puppetlabs/archive", "version_requirement": ">= 3.2.1" },
-    { "name": "puppet/nginx", "version_requirement": ">= 0.15.0" },
-    { "name": "puppet/php", "version_requirement": ">= 6.0.2" },
-    { "name": "puppetlabs/mysql", "version_requirement": ">= 8.0.0" }
-
+    {
+      "name": "puppetlabs/archive",
+      "version_requirement": ">= 3.2.0 < 3.2.1"
+    },
+    {
+      "name": "puppet/nginx",
+      "version_requirement": ">= 0.14.0 < 0.15.0"
+    },
+    {
+      "name": "puppet/php",
+      "version_requirement": ">= 6.0.1 < 6.0.2"
+    },
+    {
+      "name": "puppetlabs/mysql",
+      "version_requirement": ">= 7.0.0 < 8.0.0"
+    }
   ],
   "operatingsystem_support": [
     {

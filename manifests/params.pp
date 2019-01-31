@@ -11,7 +11,7 @@ class matomo::params {
   $package_manage                       = true
 
 # mysql params
-  
+
   $root_password                        = 'Crackme_iF_you_can_pleasE'
   $remove_default_accounts              = true
   $matomo_db_user                       = 'matomo'
@@ -20,7 +20,7 @@ class matomo::params {
   $host                                 = 'localhost'
   $grant                                = ['ALL']
   $sql_backup_file                      = undef
-  $enforce_sql                          = true	  
+  $enforce_sql                          = true
 
 # nginx params
 

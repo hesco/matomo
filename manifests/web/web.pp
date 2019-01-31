@@ -11,7 +11,7 @@ class matomo::web::web (
   $www_root                     = $matomo::params::www_root,
   $use_default_location         = $matomo::params::use_default_location,
   $access_log                   = $matomo::params::access_log,
-  $error_log                    = $matomo::params::error_log,  
+  $error_log                    = $matomo::params::error_log,
   $mode                         = $matomo::params::mode,
   $ssl                          = $matomo::params::ssl,
   $ssl_key                      = $matomo::params::ssl_key,
@@ -39,8 +39,8 @@ class { '::nginx': }
       ssl_cert             => $ssl_cert,
   }
   nginx::resource::location { $site_name:
-      ssl           => $ssl,
       ensure        => $ensure,
+      ssl           => $ssl,
       location      => $location,
       server        => $server,
       fastcgi       => $fastcgi,
@@ -58,7 +58,7 @@ class { '::php':
       composer     => true,
       pear         => true,
       phpunit      => false,
-      extensions  => {
+      extensions   => {
         curl      => { },
         gd        => { },
         mysql     => { },
@@ -67,9 +67,9 @@ class { '::php':
         json      => { },
         libxml    => { },
         dom       => { },
-        simplexml => { },   
+        simplexml => { },
         },
-     settings      => {
+    settings       => {
       'PHP/max_input_time'                => '300',
       'PHP/memory_limit'                  => '64M',
       'PHP/post_max_size'                 => '32M',
@@ -77,7 +77,7 @@ class { '::php':
       'PHP/always_populate_raw_post_data' => '-1',
       'PHP/session.auto_start'            => '0',
       'PHP/max_execution_time'            => '0',
-   }, 
+  },
   }
 
 }
