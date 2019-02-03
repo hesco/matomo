@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#just fixing www folder permissions
+
+chown -R <%= @www_user %>:<%= @www_user %> <%= @www_root %>
+chmod -R 0755 <%= @www_root %>/tmp || true
+chmod -R 0755 <%= @www_root %>/tmp/assets/ || true
+chmod -R 0755 <%= @www_root %>/tmp/cache/ || true
+chmod -R 0755 <%= @www_root %>/tmp/logs/ || true
+chmod -R 0755 <%= @www_root %>/tmp/tcpdf/ || true
+chmod -R 0755 <%= @www_root %>/tmp/templates_c/ || true

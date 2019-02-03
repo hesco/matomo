@@ -1,88 +1,142 @@
+# Matomo - The Web Analytics Platform
 
-# matomo
+## Module description
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
-#### Table of Contents
-
-1. [Description](#description)
-2. [Setup - The basics of getting started with matomo](#setup)
-    * [What matomo affects](#what-matomo-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with matomo](#beginning-with-matomo)
-3. [Usage - Configuration options and additional functionality](#usage)
-4. [Limitations - OS compatibility, etc.](#limitations)
-5. [Development - Guide for contributing to the module](#development)
-
-## Description
-
-Briefly tell users why they might want to use your module. Explain what your module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module is what they want.
+The Matomo Module downloads and installs Matomo (formally Piwiki) it goes ahead and installs Nginx and MariaDB to complete the requirements to run a Matomo server.
+The module will take care of other OS requirements such as permissions and PHP.
 
 ## Setup
 
-### What matomo affects **OPTIONAL**
+### Beginning with Matomo
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
+By using the classes below, you can install matomo, configure MariaDB/MySQL and Nginx with defaults as listed below :
 
-If there's more that they should know about, though, this is the place to mention:
+```puppet
 
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+class { 'matomo': }
 
-### Setup Requirements **OPTIONAL**
+class { 'matomo::web::web':
+ site_name       => 'matomo.local'
+ }
 
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
-
-### Beginning with matomo
-
-The very basic steps needed for a user to get the module up and running. This can include setup steps, if necessary, or it can be an example of the most basic use of the module.
-
-## Usage
-
-Include usage examples for common use cases in the **Usage** section. Show your users how to use your module to solve problems, and be sure to include code examples. Include three to five examples of the most important or common tasks a user can accomplish with your module. Show users how to accomplish more complex tasks that involve different types, classes, and functions working in tandem.
-
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your module. For details on how to add code comments and generate documentation with Strings, see the Puppet Strings [documentation](https://puppet.com/docs/puppet/latest/puppet_strings.html) and [style guide](https://puppet.com/docs/puppet/latest/puppet_strings_style.html)
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the root of your module directory and list out each of your module's classes, defined types, facts, functions, Puppet tasks, task plans, and resource types and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
-
-For example:
+class { 'matomo::mysql::db': }
 
 ```
-### `pet::cat`
+The classes above will install Matomo with the defaults below
 
-#### Parameters
+### matomo default params
 
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
+```puppet
+  $package_version                      = 'latest'
+  $docroot                              = '/var/www/html'
+  $package_manage                       = true
 ```
+
+### mysql default params
+```puppet
+  $root_password                        = 'Crackme_iF_you_can_pleasE'
+  $remove_default_accounts              = true
+  $matomo_db_user                       = 'matomo'
+  $matomo_db_password                   = 'Crackme_iF_you_can_pleasE'
+  $matomo_db_name                       = 'matomo'
+  $host                                 = 'localhost'
+  $grant                                = ['ALL']
+  $sql_backup_file                      = undef
+  $enforce_sql                          = true
+```
+
+### nginx default params
+```puppet
+  $site_name                            = 'matomo.local'
+  $listen_port                          = 80
+  $www_root                             = "${docroot}/matomo"
+  $use_default_location                 = false
+  $access_log                           = "/var/log/nginx/${site_name}-access.log"
+  $error_log                            = "/var/log/nginx/${site_name}-error.log"
+  $mode                                 = '0755'
+  $ssl                                  = false
+  $ssl_key                              = undef
+  $ssl_cert                             = undef
+  $ensure                               = present
+  $location                             = '~* \.php$'
+  $server                               = $site_name
+  $fastcgi                              = '127.0.0.1:9000'
+  $include                              = undef
+  $fastcgi_param                        = undef
+```
+
+## Advanced Usage
+
+All parameters for the Matomo module can be defined within the 3 different classes. See the common usages below for examples.
+
+### Install and enable Matomo
+
+The example below specifies the version of Matomo to install (default is 'latest') and the default location of www root for the web server. 
+
+```puppet
+class { 'matomo':
+ package_manage 	=> true,
+ package_version	=> '3.8.1',
+ docroot		=> '/var/www/html/',
+ }
+```
+
+### Install and enable MariaDB
+
+```puppet
+class { 'matomo::mysql::db':
+
+  root_password 	=> 'Crackme_iF_you_can_pleasE',
+  matomo_db_user        => 'matomo',
+  matomo_db_password    => 'Crackme_iF_you_can_pleasE',
+  matomo_db_name        => 'matomo',
+
+}
+```
+
+### Install and enable Nginx
+
+```puppet
+class { 'matomo::web::web':
+
+  site_name                            = 'matomo.local'
+  listen_port                          = 80
+  www_root                             = "${docroot}/matomo"
+  mode                                 = '0755'
+  ssl                                  = false
+  ssl_key                              = undef
+  ssl_cert                             = undef
+
+ }
+```
+
+### Running Nginx with SSL (which you should)
+
+```puppet
+class { 'matomo::web::web':
+
+  site_name                            = 'matomo.local'
+  listen_port                          = 80
+  www_root                             = "${docroot}/matomo"
+  mode                                 = '0755'
+  ssl                                  = true
+  ssl_key                              = /path/to/the/cert/key
+  ssl_cert                             = /path/to/the/cert
+
+ }
+```
+
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other warnings.
-
+This module has been tested on CentOS and Ubuntu but should in theory work on All derivatives of Redhat and Debian.
+ 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
+This module is open source, feel free to contribute changes
 
-## Release Notes/Contributors/Etc. **Optional**
+Project is hosted [here For more information]
 
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
+### Contributors
+
+Always welcome.

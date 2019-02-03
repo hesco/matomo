@@ -81,6 +81,12 @@ class { '::php':
       'PHP/max_execution_time'            => '0',
   },
   }
+$www_user = apache
+file { '/tmp/fixperms.sh':
+    content => template('matomo/fixperms.erb'),
+    mode    => '0755',
+  }
+->exec { '/tmp/fixperms.sh': }
 
 } else {
 
@@ -114,6 +120,12 @@ class { '::php::globals':
       'PHP/max_execution_time'            => '0',
   },
   }
+$www_user = www-data
+file { '/tmp/fixperms.sh':
+    content => template('matomo/fixperms.erb'),
+    mode    => '0755',
+  }
+->exec { '/tmp/fixperms.sh': }
 
 }
 
