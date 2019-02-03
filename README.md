@@ -99,13 +99,13 @@ class { 'matomo::mysql::db':
 ```puppet
 class { 'matomo::web::web':
 
-  site_name                            = 'matomo.local'
-  listen_port                          = 80
-  www_root                             = "${docroot}/matomo"
-  mode                                 = '0755'
-  ssl                                  = false
-  ssl_key                              = undef
-  ssl_cert                             = undef
+  site_name                            => 'matomo.local',
+  listen_port                          => 80,
+  www_root                             => "/var/www/html/matomo",
+  mode                                 => '0755',
+  ssl                                  => false,
+  ssl_key                              => undef,
+  ssl_cert                             => undef,
 
  }
 ```
@@ -115,13 +115,13 @@ class { 'matomo::web::web':
 ```puppet
 class { 'matomo::web::web':
 
-  site_name                            = 'matomo.local'
-  listen_port                          = 80
-  www_root                             = "${docroot}/matomo"
-  mode                                 = '0755'
-  ssl                                  = true
-  ssl_key                              = /path/to/the/cert/key
-  ssl_cert                             = /path/to/the/cert
+  site_name                            => 'matomo.local',
+  listen_port                          => 80,
+  www_root                             => "/var/www/html/matomo",
+  mode                                 => '0755',
+  ssl                                  => true,
+  ssl_key                              => /path/to/the/cert/key,
+  ssl_cert                             => /path/to/the/cert,
 
  }
 ```
