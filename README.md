@@ -135,7 +135,7 @@ This module has been tested on CentOS and Ubuntu but should in theory work on Al
 
 This module is open source, feel free to contribute changes
 
-Project is hosted [here For more information]
+Project is hosted [here For more information.](https://github.com/akisakye/matomo)
 
 ### Contributors
 
