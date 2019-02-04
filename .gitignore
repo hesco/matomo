@@ -22,3 +22,16 @@
 /convert_report.txt
 /update_report.txt
 .DS_Store
+import/
+/spec/fixtures/
+.tmp
+*.lock
+*.local
+.rbenv-gemsets
+.ruby-version
+build/
+docs/
+tests/
+log/
+junit/
+tmp/

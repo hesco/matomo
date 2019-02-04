@@ -50,6 +50,8 @@ class { '::nginx': }
 
 #php class
 
+if $::os['family'] == 'RedHat' {
+
 class { '::php':
       ensure       => latest,
       manage_repos => true,
@@ -79,5 +81,40 @@ class { '::php':
       'PHP/max_execution_time'            => '0',
   },
   }
+
+} else {
+
+class { '::php::globals':
+  php_version => '7.0',
+}
+-> class { '::php':
+      manage_repos => true,
+      fpm          => true,
+      dev          => true,
+      composer     => true,
+      pear         => true,
+      phpunit      => false,
+      extensions   => {
+        curl      => { },
+        gd        => { },
+        mysql     => { },
+        xml       => { },
+        mbstring  => { },
+        json      => { },
+        dom       => { },
+        simplexml => { },
+        },
+    settings       => {
+      'PHP/max_input_time'                => '300',
+      'PHP/memory_limit'                  => '64M',
+      'PHP/post_max_size'                 => '32M',
+      'PHP/upload_max_filesize'           => '32M',
+      'PHP/always_populate_raw_post_data' => '-1',
+      'PHP/session.auto_start'            => '0',
+      'PHP/max_execution_time'            => '0',
+  },
+  }
+
+}
 
 }
