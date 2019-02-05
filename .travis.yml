@@ -33,14 +33,13 @@ matrix:
 branches:
   only:
     - master
-    - /^v\d/
 notifications:
-  email: false
+  email: true
 deploy:
   provider: puppetforge
-  user: puppet
+  user: akisakye
   password:
-    secure: ""
+    secure: "DxL2vG6d47V2KdxSWULsjQuEK0nw5bAKgXbS5TlSQn7rynyx1YkFjnKFZTXRvu0tDaVQDN9nkmd7AaAfaKweHS5LQ1WiiwZzcund9EVuD+HaQpKZKFQRPbT6FUArqohXQNQQMKIQ5mnQadbhKz/dnFP41Y7QA7Aeps4c+gos5AwBshSoxksj5Jb5A1TOnEstj4SBqoL0vQU/3BWemrXWc/AoD64Ta7vQG5lcI6hssyxxES4FO0LE/TBIz0IzFYRFhgYu7SlYvh4V1m4Ow/+eTyvRgXV9sGDlUmzbxddZbicWsTZ8Ky0gVq30a98EicNUQsxz3np2tWzMSBw0DZCH6b9usJsZfPfPoYTwRM0B/lE8iSKxQMNM2NdPiKThjyfd91kY0+jmo6JHvX/EAhpQ9MHbfMCgr2p2trlriSrrfoXf442Nb3CQqX/IKkReRWviK+L8d8P3BT8l8ryXZ+nNTwbvdqe3CIyVeg+5u2ZzN+MgCqGvwdADioZH9HSojUEJNBciuYv1AKhjEaX44TPwTAKE04IzA9bbtU+vbkP8AkHfMc6d//yH3JdDjWwj+kncWtKSd06vgkMUtdkUAQXTWzPXWKF5yGEv21RACocTkDoMRLwVGsMS26PHS46a4AbuDvKir9YQ0XORhMBYBtpXgrf1c9IrnJbCNDumOyiFcZ0="
   on:
     tags: true
     all_branches: true
