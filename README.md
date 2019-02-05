@@ -126,6 +126,9 @@ class { 'matomo::web::web':
  }
 ```
 
+## Accessing the Web interface
+
+Once installation is done, Matomo web interface can be accessed using the url to complete setup e.g. matomo.local
 
 ## Limitations
 
