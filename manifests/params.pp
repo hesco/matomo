@@ -107,15 +107,12 @@ class matomo::params {
   $listen_port                          = 80
   $www_root                             = "${docroot}/matomo"
   $use_default_location                 = false
-  $access_log                           = "/var/log/nginx/${site_name}-access.log"
-  $error_log                            = "/var/log/nginx/${site_name}-error.log"
   $mode                                 = '0755'
   $ssl                                  = false
   $ssl_key                              = undef
   $ssl_cert                             = undef
   $ensure                               = present
   $location                             = '~* \.php$'
-  $server                               = $site_name
   $fastcgi                              = '127.0.0.1:9000'
   $include                              = undef
   $fastcgi_param                        = undef

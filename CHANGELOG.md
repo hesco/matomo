@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.6
+
+**Features**
+
+**Bugfixes**
+Corrected error that prevented proper nginx configuration
+
+**Known Issues**
+
+
+
 ## Release 0.1.0
 
 **Features**
