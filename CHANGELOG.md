@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.7
+
+**Features**
+
+**Bugfixes**
+Added selinux mod to allow webserver to run with right perms
+
+**Known Issues**
+
 ## Release 0.1.6
 
 **Features**
