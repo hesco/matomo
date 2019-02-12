@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'matomo::web' do
+describe 'matomo::web::web' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
