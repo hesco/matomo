@@ -1,47 +1,43 @@
----
 sudo: false
 dist: trusty
 language: ruby
 cache: bundler
 before_install:
-  - bundle -v
-  - rm -f Gemfile.lock
-  - gem update --system
-  - gem --version
-  - bundle -v
+- bundle -v
+- rm -f Gemfile.lock
+- gem update --system
+- gem --version
+- bundle -v
 script:
-  - 'bundle exec rake $CHECK'
+- bundle exec rake $CHECK
 bundler_args: --without system_tests
 rvm:
-  - 2.5.1
+- 2.5.1
 env:
   global:
-    - BEAKER_PUPPET_COLLECTION=puppet6 PUPPET_GEM_VERSION="~> 6.0"
+  - BEAKER_PUPPET_COLLECTION=puppet6 PUPPET_GEM_VERSION="~> 6.0"
 matrix:
   fast_finish: true
   include:
-    -
-      env: CHECK="syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop"
-    -
-      env: CHECK=parallel_spec
-    -
-      env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
-      rvm: 2.4.4
-    -
-      env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec
-      rvm: 2.1.9
+  - env: CHECK="syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore
+      check:test_file rubocop"
+  - env: CHECK=parallel_spec
+  - env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
+    rvm: 2.4.4
+  - env: PUPPET_GEM_VERSION="~> 4.0" CHECK=parallel_spec
+    rvm: 2.1.9
 branches:
   only:
-    - master
-    - /^v\d/
+  - master
+  - /^v\d/
 notifications:
   email: true
 deploy:
   provider: puppetforge
   user: akisakye
   password:
-    secure: "XiNa+1eMKcA2UGhyaNOaO/rvWxKMvFP6QrxX0Ill3ZPVJx8QhZ9IrM9Cii2knJj6YKdQkSKhmF4rybdlxfy0kGI+SN3R5UhUzmykZZIK9lVnXGtPx5GDKva+QalYW0/IBmvcBefFN1bAyTZFbqcs6qFz5qO5BFUSeMXtQQmcbhmjec8wAJoYPn6bHD1H9uw9y68P0wC7l+YD9+ohTsR1EPCAIM3jdDHV1v1BHWRuW+puz00RJyMjxHzFD21d5LPb8vU/9UEXzgkvaIP1/G4U3s/xz3b+g+PeXJnowmKltK7xL06EN9syoPN9CrFwukWHwZqvh1UJBdWt3qkU8fwerFRJ56eYZAK6uy6xGgFbFqWuFkK0oPAaRbN4Ma87/wPHsNaCdxVPJiaKAkzBLbpl9I8qEMq8IWzONFr18OK3lNzthucGzJoZNZosirhfAu1wYnRB8+uByIGxRsWD2YEZKeczcv2tHF7e6gVo+4eBNYc41cANjGlJtg8RZcIr7RlYEDGpUPS6lQ1CxsY6CIQzsl+Ijl01mWAoA9dmbuWEoa2AcuOxlRo+QnQaOsmIcmKGeEQiNa6YW3zcp1P6V68jpqjcKt7QssgIR7Q/VvjPUMGkxD8MFymZYpwz/yR/Se4AGO/FPDcmpDbkD9cVaQy6qR/f1iQW8IXPHItDsvoqACQ="
+    secure: no3d7qk9mk4KNt3KMUPLd+NAD0aVe+l5eS5DCpxHnIj/mAL8RdSskBoR5zSoPVFdSYvDYgzgmgDJ3cmJWgm9q0YtJfX1vMtg6/vZTaQrFeT2LC81J6dbo73ysYUTVdj8ljcpoeoPoZOqn0d24Gc6jDIribdr59+ZPNBOX/vscOTZIHEj50Q32PdGyNDCJgGdkG5e9YXSOHLt65cdllnTHDNN/3cKLHEWoEAV2Qdmct3KyOWhl7FKHaK/n03I+mGWcYy4rClYI+Ygfkn99ERD7f8wJRHm8T9ZQDsOJOikz4eLVX0E715C5BZL4seoyoOJPRqugczGcoZLK99F7XAYBxAnu3l/FYi9UfZM807HgmHrM/aHS4zcb2dnYuCfh5yK5q1kNhS5lQGWrS8ty3XAmeeSYzUXMtkvBkWT4Y4c0oS67QAd9/T8JSh6C1bABSJ4hWTxPqtg0oaKaXjhhO4hT8O0f9wLXbehsSlPqoZp09FqCbj+XMMvBYkfTzm06JPM365cWEigk/4FzcqpW5pAjI4qTbfXO6Vns+uqhaMVBCCxxB0FhBujemG3zqdwzTrYFDv1XMba6DZNc8w5NrR7QZk9wlaYzimgL8Ict9jOYeUkpQOTOya1o1JIk4Ilgtr5IIfkxpRioK9uR1vvd1wIgN4mBwXCI3XRskOgO1npFto=
   on:
     tags: true
     all_branches: true
-    condition: "$DEPLOY_TO_FORGE = yes"
+    condition: $DEPLOY_TO_FORGE = yes
