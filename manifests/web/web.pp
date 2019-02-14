@@ -16,12 +16,15 @@ class matomo::web::web (
   $ssl                          = $matomo::params::ssl,
   $ssl_key                      = $matomo::params::ssl_key,
   $ssl_cert                     = $matomo::params::ssl_cert,
+  $ssl_redirect                 = $matomo::params::ssl_redirect,
   $ensure                       = $matomo::params::ensure,
   $location                     = $matomo::params::location,
   $server                       = $site_name,
   $fastcgi                      = $matomo::params::fastcgi,
   $include                      = $matomo::params::include,
   $fastcgi_param                = $matomo::params::fastcgi_param,
+  $index_secure                 = $matomo::params::index_secure,
+  $location_allow               = $matomo::params::location_allow,
 
 ) {
 
@@ -37,6 +40,7 @@ class { '::nginx': }
       ssl                  => $ssl,
       ssl_key              => $ssl_key,
       ssl_cert             => $ssl_cert,
+      ssl_redirect         => $ssl_redirect,
   }
   nginx::resource::location { $site_name:
       ensure        => $ensure,
@@ -47,6 +51,25 @@ class { '::nginx': }
       include       => $include,
       fastcgi_param => $fastcgi_param,
   }
+
+
+if $index_secure == true {
+
+  nginx::resource::location { "${site_name}.${server}":
+      ensure         => $ensure,
+      ssl            => $ssl,
+      server         => $server,
+      fastcgi        => $fastcgi,
+      include        => $include,
+      fastcgi_param  => $fastcgi_param,
+      location       => '^~ /index.php',
+      location_allow => $location_allow,
+      location_deny  => ['all'],
+  }
+
+} else {
+
+}
 
 #php class
 

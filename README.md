@@ -57,12 +57,16 @@ The classes above will install Matomo with the defaults below
   $ssl                                  = false
   $ssl_key                              = undef
   $ssl_cert                             = undef
+  $ssl_redirect				= false
   $ensure                               = present
   $location                             = '~* \.php$'
   $server                               = $site_name
   $fastcgi                              = '127.0.0.1:9000'
   $include                              = undef
   $fastcgi_param                        = undef
+  $index_secure				= false
+  $location_allow			= ['127.0.0.1']
+
 ```
 
 ## Advanced Usage
@@ -122,8 +126,9 @@ class { 'matomo::web::web':
   ssl                                  => true,
   ssl_key                              => /path/to/the/cert/key,
   ssl_cert                             => /path/to/the/cert,
-
+  ssl_redirect			       => true,
  }
+
 ```
 
 ## Accessing the Web interface

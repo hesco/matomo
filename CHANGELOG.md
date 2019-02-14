@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.1.8
+
+**Features**
+Added option to add ssl redirect for nginx
+Added option to control ACL access to the system 
+
+**Bugfixes**
+
+**Known Issues**
+
 ## Release 0.1.7
 
 **Features**

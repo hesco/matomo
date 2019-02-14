@@ -116,5 +116,8 @@ class matomo::params {
   $fastcgi                              = '127.0.0.1:9000'
   $include                              = undef
   $fastcgi_param                        = undef
+  $index_secure                         = false
+  $location_allow                       = ['127.0.0.1']
+  $ssl_redirect                         = false
 
 }
