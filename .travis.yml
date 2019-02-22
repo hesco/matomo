@@ -6,7 +6,7 @@ before_install:
 - bundle -v
 - rm -f Gemfile.lock
 - gem update --system
-- gem i rubygems-update -v '<3' && update_rubygems
+- gem install "rubygems-update:<3.0.0" --no-document
 - gem install bundler
 - gem --version
 - bundle -v
