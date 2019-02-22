@@ -6,6 +6,8 @@ before_install:
 - bundle -v
 - rm -f Gemfile.lock
 - gem update --system
+- gem i rubygems-update -v '<3' && update_rubygems
+- gem install bundler
 - gem --version
 - bundle -v
 script:
