@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.2.0
+
+**Features**
+No changes to code, added travis ci intergration for build and upload
+
+**Bugfixes**
+
+**Known Issues**
+
 ## Release 0.1.8
 
 **Features**
