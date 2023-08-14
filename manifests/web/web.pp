@@ -53,29 +53,29 @@ class { '::nginx': }
   }
 
 
-if $index_secure == true {
-
-  nginx::resource::location { "${site_name}.${server}":
-      ensure         => $ensure,
-      ssl            => $ssl,
-      server         => $server,
-      fastcgi        => $fastcgi,
-      include        => $include,
-      fastcgi_param  => $fastcgi_param,
-      location       => '^~ /index.php',
-      location_allow => $location_allow,
-      location_deny  => ['all'],
+  if $index_secure == true {
+  
+    nginx::resource::location { "${site_name}.${server}":
+        ensure         => $ensure,
+        ssl            => $ssl,
+        server         => $server,
+        fastcgi        => $fastcgi,
+        include        => $include,
+        fastcgi_param  => $fastcgi_param,
+        location       => '^~ /index.php',
+        location_allow => $location_allow,
+        location_deny  => ['all'],
+    }
+  
+  } else {
+  
   }
-
-} else {
-
-}
-
-#php class
-
-if $::os['family'] == 'RedHat' {
-
-class { '::php':
+  
+  #php class
+  
+  if $::os['family'] == 'RedHat' {
+  
+    class { '::php':
       ensure       => latest,
       manage_repos => true,
       fpm          => true,
@@ -84,39 +84,39 @@ class { '::php':
       pear         => true,
       phpunit      => false,
       extensions   => {
-        curl      => { },
-        gd        => { },
-        mysql     => { },
-        xml       => { },
-        mbstring  => { },
-        json      => { },
-        libxml    => { },
-        dom       => { },
-        simplexml => { },
-        },
-    settings       => {
-      'PHP/max_input_time'                => '300',
-      'PHP/memory_limit'                  => '64M',
-      'PHP/post_max_size'                 => '32M',
-      'PHP/upload_max_filesize'           => '32M',
-      'PHP/always_populate_raw_post_data' => '-1',
-      'PHP/session.auto_start'            => '0',
-      'PHP/max_execution_time'            => '0',
-  },
-  }
-$www_user = apache
-file { '/tmp/fixperms.sh':
-    content => template('matomo/fixperms.erb'),
-    mode    => '0755',
-  }
-->exec { '/tmp/fixperms.sh': }
-
-} else {
-
-class { '::php::globals':
-  php_version => '7.0',
-}
--> class { '::php':
+          curl      => { },
+          gd        => { },
+          mysql     => { },
+          xml       => { },
+          mbstring  => { },
+          json      => { },
+          libxml    => { },
+          dom       => { },
+          simplexml => { },
+      },
+      settings       => {
+        'PHP/max_input_time'                => '300',
+        'PHP/memory_limit'                  => '64M',
+        'PHP/post_max_size'                 => '32M',
+        'PHP/upload_max_filesize'           => '32M',
+        'PHP/always_populate_raw_post_data' => '-1',
+        'PHP/session.auto_start'            => '0',
+        'PHP/max_execution_time'            => '0',
+      },
+    }
+    $www_user = apache
+    file { '/tmp/fixperms.sh':
+      content => template('matomo/fixperms.erb'),
+      mode    => '0755',
+    }
+    ->exec { '/tmp/fixperms.sh': }
+  
+  } else {
+  
+    class { '::php::globals':
+      php_version => '7.0',
+    }
+    -> class { '::php':
       manage_repos => true,
       fpm          => true,
       dev          => true,
@@ -132,24 +132,24 @@ class { '::php::globals':
         json      => { },
         dom       => { },
         simplexml => { },
-        },
-    settings       => {
-      'PHP/max_input_time'                => '300',
-      'PHP/memory_limit'                  => '64M',
-      'PHP/post_max_size'                 => '32M',
-      'PHP/upload_max_filesize'           => '32M',
-      'PHP/always_populate_raw_post_data' => '-1',
-      'PHP/session.auto_start'            => '0',
-      'PHP/max_execution_time'            => '0',
-  },
+      },
+      settings       => {
+          'PHP/max_input_time'                => '300',
+          'PHP/memory_limit'                  => '64M',
+          'PHP/post_max_size'                 => '32M',
+          'PHP/upload_max_filesize'           => '32M',
+          'PHP/always_populate_raw_post_data' => '-1',
+          'PHP/session.auto_start'            => '0',
+          'PHP/max_execution_time'            => '0',
+      },
+    }
+    $www_user = www-data
+    file { '/tmp/fixperms.sh':
+        content => template('matomo/fixperms.erb'),
+        mode    => '0755',
+      }
+    ->exec { '/tmp/fixperms.sh': }
+  
   }
-$www_user = www-data
-file { '/tmp/fixperms.sh':
-    content => template('matomo/fixperms.erb'),
-    mode    => '0755',
-  }
-->exec { '/tmp/fixperms.sh': }
-
-}
 
 }
