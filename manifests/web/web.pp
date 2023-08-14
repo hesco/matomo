@@ -25,6 +25,7 @@ class matomo::web::web (
   $fastcgi_param                = $matomo::params::fastcgi_param,
   $index_secure                 = $matomo::params::index_secure,
   $location_allow               = $matomo::params::location_allow,
+  $php_version                  = $matomo::params::php_version,
 
 ) {
 
@@ -76,7 +77,7 @@ class { '::nginx': }
   if $::os['family'] == 'RedHat' {
   
     class { '::php':
-      ensure       => latest,
+      ensure       => ${php_version},
       manage_repos => true,
       fpm          => true,
       dev          => true,
