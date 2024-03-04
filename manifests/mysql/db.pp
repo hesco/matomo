@@ -3,7 +3,7 @@
 # @summary A short summary of the purpose of this class
 #
 # @example
-#   include matomo::db
+#   include matomo::mysql::db
 class matomo::mysql::db (
 
   $root_password                        = $matomo::params::root_password,

@@ -4,7 +4,7 @@
 #
 # @example
 #   include matomo::web
-class matomo::web::web (
+class matomo::web::nginx (
 
   $site_name                    = $matomo::params::site_name,
   $listen_port                  = $matomo::params::listen_port,
